@@ -52,6 +52,7 @@ function DashboardPageComponent({ firebase, user, match, addToast, toggleSidebar
             const e = blogs.find(blog => blog.url === url);
             if (e) {
                 setTitle(e.title);
+                setImage(e.image);
                 setIsPublished(e.isPublished);
                 setContent(e.content);
                 setEditable(e);
