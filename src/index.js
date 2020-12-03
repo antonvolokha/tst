@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './_styles/tailwind.style.css';
-import './_styles/main.style.scss';
+
+import 'normalize.css';
+import './_styles/index.css';
+import 'font-awesome/css/font-awesome.min.css';
+
 import * as serviceWorker from './serviceWorker';
 import { App } from './_components';
 import { FirebaseContext } from './_contexts';

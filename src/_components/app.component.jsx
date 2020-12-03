@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import { HomePage, LoginPage, LOGIN_ROUTE, HOMEPAGE_ROUTE, DASHBOARD_ROUTE, DashboardPage, DASHBOARD_EDIT_ROUTE, POSTPAGE_ROUTE, PostPage } from '../_pages';
+import { HomePage, LoginPage, LOGIN_ROUTE, BLOGPAGE_ROUTE, DASHBOARD_ROUTE, DashboardPage, DASHBOARD_EDIT_ROUTE, POSTPAGE_ROUTE, PostPage, HOME_ROUTE, CV } from '../_pages';
 import { history } from '../_config';
 import { withFirebase, withSessionProvider, withSession, ToastContext, ToastNotifier } from '../_contexts';
 import { ProtectedRoute } from './protected-route.component';
@@ -9,6 +9,8 @@ import { Footer } from './footer.component';
 import { Loader } from './loader.component';
 
 console.log(process.env.REACT_APP_LOL);
+
+const info = require('../_data/data.json');
 
 function AppComponent({ firebase, user }) {
     const [isAuthChecked, setIsAuthChecked] = useState(false);
@@ -77,10 +79,13 @@ function AppComponent({ firebase, user }) {
                             <Navbar toggleSidebar={toggleSidebar} />
                             <Switch>
                                 <Route
+                                    path={HOME_ROUTE} exact
+                                    render={props => <CV {...props} info={info.cv} />}/>
+                                <Route
                                     path={LOGIN_ROUTE} exact
                                     component={LoginPage} />
                                 <Route
-                                    path={HOMEPAGE_ROUTE} exact
+                                    path={BLOGPAGE_ROUTE} exact
                                     render={props => <HomePage blogs={blogs} {...props} toggleSidebar={toggleSidebar} />} />
                                 <ProtectedRoute
                                     path={DASHBOARD_ROUTE} exact

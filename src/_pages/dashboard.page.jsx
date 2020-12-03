@@ -17,6 +17,8 @@ function DashboardPageComponent({ firebase, user, match, addToast, toggleSidebar
 
     // initialize all the variable
     const [title, setTitle] = useState('');
+    const [image, setImage] = useState('');
+
     const [isPublished, setIsPublished] = useState(false);
     const [content, setContent] = useState('');
 
@@ -26,7 +28,7 @@ function DashboardPageComponent({ firebase, user, match, addToast, toggleSidebar
 
     const [editable, setEditable] = useState(null);
 
-    // fetch users blogs 
+    // fetch users blogs
     useEffect(() => {
         const l1 = firebase.db.collection('users').doc(user.uid).collection('blogs').onSnapshot(snapshot => {
             const b = [];
@@ -74,12 +76,14 @@ function DashboardPageComponent({ firebase, user, match, addToast, toggleSidebar
             editable ?
                 firebase.db.collection('users').doc(user.uid).collection('blogs').doc(editable.id).set({
                     title,
+                    image,
                     url,
                     isPublished,
                     content
                 }) :
                 firebase.db.collection('users').doc(user.uid).collection('blogs').add({
                     title,
+                    image,
                     url,
                     isPublished,
                     content
@@ -104,13 +108,17 @@ function DashboardPageComponent({ firebase, user, match, addToast, toggleSidebar
     const makeUrl = title => (title.toLowerCase().replace(/[\s_]/g, '-').replace(/[|[\]]/g, '').replace(/(-){2,}/g, '-'));
 
     return (
-        <div className="DashboardPage">
+        <section className="section">
             <Sidebar blogs={blogs} to={url => '/dashboard/edit/' + url} activeUrl={match.params.url} toggleSidebar={toggleSidebar} />
             <form onSubmit={addBlog} className="main-content">
                 <input
                     name="title" type="text" placeholder="Title"
                     className="w-full pr-24 p-2 mb-3 font-bold text-2xl focus:outline-none" value={title}
                     onChange={e => setTitle(e.target.value)} />
+                <input
+                    name="title" type="url" placeholder="Image"
+                    className="w-full pr-24 p-2 mb-3 font-bold text-2xl focus:outline-none" value={image}
+                    onChange={e => setImage(e.target.value)} />
                 <div className="text-right pb-2">
                     <label className="text-right px-4 inline-block cursor-pointer">
                         <input
@@ -149,7 +157,7 @@ function DashboardPageComponent({ firebase, user, match, addToast, toggleSidebar
             <div className={"remarkable " + (showPreview ? "block" : "hidden")}>
                 <Remarkable blog={{ title, content }} />
             </div>
-        </div>
+        </section>
     )
 }
 

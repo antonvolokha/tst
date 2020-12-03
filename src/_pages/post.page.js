@@ -11,7 +11,7 @@ export function PostPage({ blogs, match }) {
     const blog = blogs.find(b => b.url === url);
 
     return (
-        <div className="PostPage">
+        <section className="section">
             <div className="main-content fade-in">
                 <div className="container">
                     {
@@ -21,6 +21,6 @@ export function PostPage({ blogs, match }) {
                     }
                 </div>
             </div>
-        </div>
+        </section>
     )
 }

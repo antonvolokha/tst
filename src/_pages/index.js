@@ -1,4 +1,5 @@
-export * from './home.page'
+export * from './blog.page'
 export * from './login.page'
 export * from './dashboard.page'
 export * from './post.page'
+export * from './home.page'
