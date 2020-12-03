@@ -58,7 +58,7 @@ export const CVSections = ({id, data}) => {
                   <span className="time">{place.time}</span>
                 </h3>
                 {place.data.map(p => (
-                  <p key={p}>{p}</p>
+                  <p key={p} dangerouslySetInnerHTML={{__html: p}}></p>
                 ))}
               </div>
           ))}
